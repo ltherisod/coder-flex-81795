@@ -30,9 +30,9 @@ const restar = ()=> {
 }
     return(
         <div>
-            <button onClick={restar}>-</button>
-            <span>{count}</span>
-            <button onClick={sumar}>+</button>
+            <button onClick={restar} className="btn btn-danger">-</button>
+            <span className="btn">{count}</span>
+            <button className="btn btn-success" onClick={sumar}>+</button>
         </div>
     )
 }
