@@ -1,13 +1,15 @@
 import { useState, useEffect } from "react"
 
-const ItemCount = ()=> {
+const ItemCount = ({onAdd, stock})=> {
     
     const [count, setCount]= useState(1)
    
 
 const sumar = ()=> {
-   
-    setCount(count + 1)
+   if(count < stock){
+
+       setCount(count + 1)
+   }
 }
 const restar = ()=> {
     if(count > 0){
@@ -16,7 +18,7 @@ const restar = ()=> {
     }
 }
 const comprar =()=> {
-   
+    onAdd(count)
 }
 
 
@@ -31,9 +33,12 @@ const comprar =()=> {
     <button className="btn btn-success" onClick={sumar}>+</button>
   </div>
 
-  <button className="btn btn-primary buy-btn" >
+  <button className="btn btn-primary buy-btn" onClick={comprar}>
     Comprar
   </button>
+  {/* <button className="btn btn-primary buy-btn" onClick={()=>onAdd(count)}>
+    Comprar
+  </button> */}
   
 </div>
     )
