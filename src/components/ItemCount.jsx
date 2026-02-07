@@ -31,7 +31,7 @@ const comprar =()=> {
     <button className="btn btn-success" onClick={sumar}>+</button>
   </div>
 
-  <button className="btn btn-primary buy-btn" onClick={purchase}>
+  <button className="btn btn-primary buy-btn" >
     Comprar
   </button>
   

@@ -1,33 +1,29 @@
 import { useState, useEffect } from "react"
 import { getProducts } from "../mock/asyncMock"
 import ItemList from "./ItemList"
+import { useParams } from "react-router-dom"
 const ItemListContainer = (props)=> {
     const {mensaje}=props
     const [data, setData]= useState([])
-    // console.log('ItemListContainer', data)
-    // console.log(getProducts())
+    const {type}= useParams()
+    console.log(type)
     useEffect(()=>{
         getProducts()//pedimos datos
-        .then((res)=> setData(res))//tratamos la respuesta y la guardamos
+        .then((res)=>{
+            if(type){
+                //filtro
+                setData(res.filter((prod)=> prod.category === type))
+            }else{
+                setData(res)
+            }
+        } )//tratamos la respuesta y la guardamos
         .catch((error)=> console.log(error, 'error'))//atrapamos el error
-    },[])
-    // const miPromesa = new Promise((resolve, reject)=>{
-    //     let todoOK= true
-    //     //logica
-    //     if(todoOK){
-    //      resolve('salio todo joya')
-    //     }else{
-    //         reject('Hubo un error')
-    //     }
-    // })
-
-
-    // console.log(miPromesa)
-    // miPromesa.then((res)=> console.log(res), 'respuesta').catch((error)=> console.log(error, 'error'))
+        //esta a la escucha del cambio de categoria
+    },[type])
+    
     return(
         <div>
-            <h1>{mensaje}</h1>
-            {/* {data.map((prod)=><p key={prod.id}>{prod.name}</p>)} */}
+            <h1>{mensaje}{type && <span style={{textTransform:'capitalize'}}>{type}</span>}</h1>
             <ItemList data={data}/>
         </div>
     )
