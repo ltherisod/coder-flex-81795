@@ -24,7 +24,11 @@ const comprar =()=> {
 
 
     return(
-        <div className="counter-container">
+        <>
+        {
+            stock === 0 
+            ? <p>Lo sentimos no hay stock disponible 😱</p>
+            :        <div className="counter-container">
   <div className="counter-controls">
     <button className="btn btn-danger" onClick={restar}>-</button>
 
@@ -33,7 +37,7 @@ const comprar =()=> {
     <button className="btn btn-success" onClick={sumar}>+</button>
   </div>
 
-  <button className="btn btn-primary buy-btn" onClick={comprar}>
+  <button className="btn btn-primary buy-btn" onClick={comprar} disabled={stock === 0 || count === 0}>
     Comprar
   </button>
   {/* <button className="btn btn-primary buy-btn" onClick={()=>onAdd(count)}>
@@ -41,6 +45,8 @@ const comprar =()=> {
   </button> */}
   
 </div>
+        }
+        </>
     )
 }
 
