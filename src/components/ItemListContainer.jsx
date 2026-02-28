@@ -4,27 +4,52 @@ import ItemList from "./ItemList"
 import { useParams } from "react-router-dom"
 
 import Loader from "./Loader"
+import { collection, getDocs, query, where } from "firebase/firestore"
+import { db } from "../service/firebase"
 const ItemListContainer = (props)=> {
     const {mensaje}=props
     const [data, setData]= useState([])
     const [loading, setLoading]= useState(false)
     const {type}= useParams()
    
-    useEffect(()=>{
+    //FIREBASE
+      useEffect(()=>{
         setLoading(true)
-        getProducts()//pedimos datos
+        //CONECTARNOS A NUESTRA COLECCION
+        const prodColl= type ? query(collection(db, "productos"),where("category", "==", type)) :collection(db, "productos")
+        //pedir docs
+        getDocs(prodColl)
         .then((res)=>{
-            if(type){
-                //filtro
-                setData(res.filter((prod)=> prod.category === type))
-            }else{
-                setData(res)
+            //limpiar data
+           const list = res.docs.map((doc)=>{
+            return {
+                id:doc.id,
+                ...doc.data()
             }
-        } )//tratamos la respuesta y la guardamos
+           })
+           //console.log(list)
+           setData(list)
+        })
         .catch((error)=> console.log(error, 'error'))//atrapamos el error
         .finally(()=> setLoading(false))
         //esta a la escucha del cambio de categoria
     },[type])
+    //PROMESA
+    // useEffect(()=>{
+    //     setLoading(true)
+    //     getProducts()//pedimos datos
+    //     .then((res)=>{
+    //         if(type){
+    //             //filtro
+    //             setData(res.filter((prod)=> prod.category === type))
+    //         }else{
+    //             setData(res)
+    //         }
+    //     } )//tratamos la respuesta y la guardamos
+    //     .catch((error)=> console.log(error, 'error'))//atrapamos el error
+    //     .finally(()=> setLoading(false))
+    //     //esta a la escucha del cambio de categoria
+    // },[type])
     
     return(
         <>

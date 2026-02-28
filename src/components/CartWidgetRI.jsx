@@ -4,12 +4,12 @@ import { useContext } from "react";
 import { CartContext } from "../context/CartContext";
 
 const CartWidgetRI = ()=> {
-    const {cart}= useContext(CartContext)
+    const {cart, cartQty}= useContext(CartContext)
     console.log(cart)
     return(
         <div>
             <FaCartShopping fontSize={'1.5rem'} />
-            <Badge bg='danger'>5</Badge>
+           {cart.length > 0 &&  <Badge bg='danger'>{cartQty()}</Badge>}
         </div>
     )
 }
