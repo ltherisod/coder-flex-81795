@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react"
-import { getProducts } from "../mock/asyncMock"
+import { getProducts, productos } from "../mock/asyncMock"
 import ItemList from "./ItemList"
 import { useParams } from "react-router-dom"
 
 import Loader from "./Loader"
-import { collection, getDocs, query, where } from "firebase/firestore"
+import { addDoc, collection, getDocs, query, where } from "firebase/firestore"
 import { db } from "../service/firebase"
 const ItemListContainer = (props)=> {
     const {mensaje}=props
@@ -50,6 +50,12 @@ const ItemListContainer = (props)=> {
     //     .finally(()=> setLoading(false))
     //     //esta a la escucha del cambio de categoria
     // },[type])
+
+    // const subirDataAFirebase = ()=>{
+    //     console.log('SUBIENDO DATA...')
+    //     const prodCollec=collection(db, 'productos')
+    //     productos.map((prod)=> addDoc(prodCollec, prod))
+    // }
     
     return(
         <>
@@ -57,6 +63,7 @@ const ItemListContainer = (props)=> {
             loading 
             ? <Loader text={type ? 'Cargando Categoría' : 'Cargando todos los productos'}/>
             :<div>
+                {/* <button onClick={subirDataAFirebase}>SUBIR DATA</button> */}
             <h1>{mensaje}{type && <span style={{textTransform:'capitalize'}}>{type}</span>}</h1>
             <ItemList data={data}/>
         </div>
