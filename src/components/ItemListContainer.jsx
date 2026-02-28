@@ -2,14 +2,14 @@ import { useState, useEffect } from "react"
 import { getProducts } from "../mock/asyncMock"
 import ItemList from "./ItemList"
 import { useParams } from "react-router-dom"
-import Input from "../examples/Input"
+
 import Loader from "./Loader"
 const ItemListContainer = (props)=> {
     const {mensaje}=props
     const [data, setData]= useState([])
     const [loading, setLoading]= useState(false)
     const {type}= useParams()
-    console.log(type)
+   
     useEffect(()=>{
         setLoading(true)
         getProducts()//pedimos datos
@@ -32,7 +32,6 @@ const ItemListContainer = (props)=> {
             loading 
             ? <Loader text={type ? 'Cargando Categoría' : 'Cargando todos los productos'}/>
             :<div>
-            {/* <Input/> */}
             <h1>{mensaje}{type && <span style={{textTransform:'capitalize'}}>{type}</span>}</h1>
             <ItemList data={data}/>
         </div>
