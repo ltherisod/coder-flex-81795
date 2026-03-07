@@ -1,9 +1,35 @@
 import React, { useContext } from 'react'
 import { CartContext } from '../context/CartContext'
 import { Link } from 'react-router-dom'
+import Swal from 'sweetalert2'
 
 const CartView = () => {
   const {cart, clear, removeItem, total}= useContext(CartContext)
+
+
+  const preConfirm = ()=> {
+    Swal.fire({
+      title: '¿Estas seguro de borrar todo el carrito?',
+      icon:'question',
+      showCancelButton: true,
+    confirmButtonColor: "#3085d6",
+    cancelButtonColor: "#d33",
+    cancelButtonText:"No",
+    confirmButtonText: "Si"
+    }).then((result)=>{
+      if(result.isConfirmed){
+        Swal.fire(
+          {
+            title:'Borrado!',
+            text:'Tu carrito esta vacio!',
+            icon:'success'
+          }
+        )
+        clear()
+      }
+    })
+  }
+
   return (
     <div>
       <h1>Tu Carrito 🛒</h1>
@@ -29,7 +55,7 @@ const CartView = () => {
     {/* //aca se llama a la funcion total desde el contexto */}
     <span>Total a pagar : ${total()},00</span>
     <div style={{display:'flex', justifyContent:'space-between', alignItems:'center', width:'80%', padding:'2rem'}}>
-      <button className='btn btn-danger' onClick={clear}>Vaciar carrito</button>
+      <button className='btn btn-danger' onClick={preConfirm}>Vaciar carrito</button>
       <Link className='btn btn-success' to='/checkout'>Terminar compra</Link>
     </div>
     </div>

@@ -34,28 +34,7 @@ const ItemListContainer = (props)=> {
         .finally(()=> setLoading(false))
         //esta a la escucha del cambio de categoria
     },[type])
-    //PROMESA
-    // useEffect(()=>{
-    //     setLoading(true)
-    //     getProducts()//pedimos datos
-    //     .then((res)=>{
-    //         if(type){
-    //             //filtro
-    //             setData(res.filter((prod)=> prod.category === type))
-    //         }else{
-    //             setData(res)
-    //         }
-    //     } )//tratamos la respuesta y la guardamos
-    //     .catch((error)=> console.log(error, 'error'))//atrapamos el error
-    //     .finally(()=> setLoading(false))
-    //     //esta a la escucha del cambio de categoria
-    // },[type])
-
-    // const subirDataAFirebase = ()=>{
-    //     console.log('SUBIENDO DATA...')
-    //     const prodCollec=collection(db, 'productos')
-    //     productos.map((prod)=> addDoc(prodCollec, prod))
-    // }
+   
     
     return(
         <>
@@ -63,7 +42,6 @@ const ItemListContainer = (props)=> {
             loading 
             ? <Loader text={type ? 'Cargando Categoría' : 'Cargando todos los productos'}/>
             :<div>
-                {/* <button onClick={subirDataAFirebase}>SUBIR DATA</button> */}
             <h1>{mensaje}{type && <span style={{textTransform:'capitalize'}}>{type}</span>}</h1>
             <ItemList data={data}/>
         </div>

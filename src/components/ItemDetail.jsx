@@ -4,18 +4,24 @@ import ItemCount from './ItemCount'
 import { useContext } from 'react'
 import { CartContext } from '../context/CartContext'
 import { Link } from 'react-router-dom'
+import Swal from 'sweetalert2'
 
 const ItemDetail = ({detalle}) => {
-  //funcion que a futuro va a agregar el item al carrito (CONTEXT)
-  // const contexto = useContext(CartContext)
-  // console.log(contexto)
   const [purchase, setPuchase ]= useState(false)
-  const {cart,addItem, itemQuantity} = useContext(CartContext)
-   console.log(cart)
+  const {addItem, itemQuantity} = useContext(CartContext)
+  
   const onAdd = (cantidad)=> {
-    // console.log(`Agregas al carrito ${cantidad} unidades de ${detalle.name}`)
+   
     addItem(detalle, cantidad)
     setPuchase(true)
+    Swal.fire({
+      position:'top-end',
+      icon:'success',
+      title:`Agregaste ${detalle.name} al carrito`,
+      showCancelButton:false,
+      showConfirmButton:false,
+      timer:1000
+    })
   }
   const stockActualizado = detalle.stock - itemQuantity(detalle.id)
   return (

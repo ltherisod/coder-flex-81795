@@ -9,7 +9,7 @@ import { NavLink } from 'react-router-dom'
 
 
 const NavBar = ()=> {
-    console.log('navbar')
+   
     return (
         <nav className='nav-container'>
             <NavLink className='anchor-nav' to="/">

@@ -5,14 +5,12 @@ import { Link, useParams } from 'react-router-dom'
 import Loader from './Loader'
 import { doc, getDoc } from 'firebase/firestore'
 import { db } from '../service/firebase'
-import { TbRubberStampOff } from 'react-icons/tb'
+
 
 const ItemDetailContainer = () => {
     const [detalle, setDetalle] = useState({})
     const [cargando, setCargando]= useState(true)
     const [notExist, setNotExist]= useState(null)
-    // const param =useParams()
-    // console.log(param.id)
     const {id} =useParams()
     
 //FIREBASE
@@ -31,13 +29,7 @@ const ItemDetailContainer = () => {
         .finally(()=> setCargando(false))
     },[id])
 
-    //PROMESA
-    // useEffect(()=>{
-    //     getItem(id)
-    //     .then((res)=> setDetalle(res))
-    //     .catch((error)=> console.log(error))
-    //     .finally(()=> setCargando(false))
-    // },[id])
+ 
 
 if(notExist){
   return (

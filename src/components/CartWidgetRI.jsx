@@ -5,7 +5,7 @@ import { CartContext } from "../context/CartContext";
 
 const CartWidgetRI = ()=> {
     const {cart, cartQty}= useContext(CartContext)
-    console.log(cart)
+   
     return(
         <div>
             <FaCartShopping fontSize={'1.5rem'} />
